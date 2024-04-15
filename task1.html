@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="src.js" defer></script>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <meta name="description" content="Yea this is a maze app">
+        <meta name="author" content="auth">
+        <meta name="tags" content="maze,app,hits,html">
+        <title>Maze app</title>
+    </head>
+
+    <body>
+        <div class="menu">
+            <button type="button" id="solveButton" disabled="true">Solve</button>
+            <button type="button" id="resetButton">Reset</button>
+            <button type="button" id="newMazeButton">New Maze</button>
+
+            <input type="number" id="mazeSizeInput" value="31" min="5" max="200" placeholder="Maze Size"></input>
+            <input type="number" id="solveDelay" value="5" min="0" max="1000" placeholder="Delay between steps"></input>
+
+            <fieldset>
+                <legend>Maze edit mode:</legend>
+
+                <input type="radio" id="walls" name="mode" value="walls" checked="checked"></input>
+                <label for="walls">Walls</label>
+
+                <input type="radio" id="start" name="mode" value="start"></input>
+                <label for="start">Start Point</label>
+
+                <input type="radio" id="end" name="mode" value="end"></input>
+                <label for="end">End Point</label>
+            </fieldset>
+        </div>
+
+        <div id="maze">
+            
+        </div>
+    </body>
+
+</html>

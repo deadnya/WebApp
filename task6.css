@@ -1,0 +1,73 @@
+* {
+  user-select: none;
+}
+body {
+  background-color: rgb(227, 227, 227);
+}
+
+#canvasContainer {
+  position: relative;
+  width: 75%;
+  height: 500;
+  margin: 40px auto;
+  border: 1px solid black;
+}
+
+#canvas {
+  background-color: black;
+  position: relative;
+  margin: 30px auto;
+  margin-left: 30px;
+  display: inline-block;
+}
+
+#reset {
+  background-color: rgb(255, 186, 126);
+  border: none;
+  color: black;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  display: block;
+}
+
+#reset:hover {
+  background-color: rgb(255, 165, 68);
+}
+
+.elem {
+  display: inline-block;
+  margin: auto;
+  vertical-align: middle;
+}
+
+#values {
+  margin-left: 50px;
+}
+
+.digit {
+  display: inline-block;
+  font-size:24px;
+  margin: 0px;
+}
+
+.digitvalue {
+  display: inline-block;
+  position: relative;
+  top: 10%;
+  height: 20px;
+  background-color: black;
+  margin: auto;
+}
+
+.valdiv {
+  height: 24px;
+  margin: 22px;
+}

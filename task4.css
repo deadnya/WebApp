@@ -1,0 +1,57 @@
+#canvas {
+    display: block;
+    max-width: 500px;
+    height: 500px;
+
+    margin: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#antSlider {
+    display: block; 
+}
+
+.centerDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#settings {
+    padding: 16px;
+}
+
+#myinput {
+    margin: 20px;
+    display: inline;
+    padding: auto;
+}
+
+#antCounter {
+    display: inline;
+}
+
+#editModeDiv {
+    display: block;
+}
+
+.element {
+    height: 60px;
+}
+
+button {
+    background-color: rgb(255, 186, 126);
+    border: none;
+    color: black;
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: rgb(255, 165, 68);
+}

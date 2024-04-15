@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ants</title>
+    <script defer src="task4.js"></script>
+    <link rel="stylesheet" href="task4.css">
+</head>
+
+<body style="margin: 40px;">
+
+    <div class="centerDiv">
+        <canvas id="canvas" width="500" height="500"></canvas>
+    </div>
+
+    <div class="centerDiv">
+        <div class="element">
+            <input type="range" min="20" max="400" value="200" class="slider" id="myinput">
+            <p id="antCounter">Ants count: 200</p>
+        </div>
+
+        <div class="element">
+            <div id="settings">
+                <input type="radio" id="walls" name="mode" value="walls" checked="checked"></input>
+                <label for="walls">Walls</label>
+
+                <input type="radio" id="start" name="mode" value="start"></input>
+                <label for="start">Start Point</label>
+
+                <input type="radio" id="end" name="mode" value="end"></input>
+                <label for="end">End Point</label>
+            </div>
+        </div>
+
+        <div class="element">
+            <button id="startButton">Start</button>
+            <button id="pauseButton">II</button>
+            <button id="playButton">▶</button>
+            <button id="resetButton">Reset</button>
+        </div>
+    </div>
+</body>
+</html>
