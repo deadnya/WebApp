@@ -24,10 +24,6 @@
 <body>
 
     <div class="centerDiv">
-        <canvas id="canvas" width="500" height="500"></canvas>
-    </div>
-
-    <div class="centerDiv">
         <div class="element">
             <input type="range" min="20" max="400" value="200" class="slider" id="myinput">
             <p id="antCounter">Ants count: 200</p>
@@ -35,23 +31,30 @@
 
         <div class="element">
             <div id="settings">
-                <input type="radio" id="walls" name="mode" value="walls" checked="checked"></input>
-                <label for="walls">Walls</label>
+                <input type="radio" id="wall" name="mode" value="walls" checked="checked"></input>
+                <label for="walls" style="font-size: 18px;">Wall</label>
 
-                <input type="radio" id="start" name="mode" value="start"></input>
-                <label for="start">Start Point</label>
+                <input type="radio" id="food" name="mode" value="start"></input>
+                <label for="start" style="font-size: 18px;">Food</label>
 
-                <input type="radio" id="end" name="mode" value="end"></input>
-                <label for="end">End Point</label>
+                <input type="radio" id="home" name="mode" value="end"></input>
+                <label for="end" style="font-size: 18px;">Home</label>
+
+                <input type="radio" id="erase" name="mode" value="erase"></input>
+                <label for="erase" style="font-size: 18px;">Erase</label>
             </div>
         </div>
 
         <div class="element">
-            <button id="startButton">Start</button>
+            <button id="startButton">Spawn ants</button>
             <button id="pauseButton">II</button>
             <button id="playButton">▶</button>
             <button id="resetButton">Reset</button>
         </div>
+    </div>
+
+    <div class="centerDiv">
+        <canvas id="canvas" width="500" height="500"></canvas>
     </div>
 </body>
 </html>

@@ -408,8 +408,8 @@ const BLUR_STRENGTH = 80;
 const CANVAS_WIDTH = 1000;
 const GRID_WIDTH = 100;
 const GRID_SIZE = CANVAS_WIDTH / GRID_WIDTH;
-const homeX = GRID_SIZE;
-const homeY = GRID_SIZE;
+let homeX = GRID_SIZE;
+let homeY = GRID_SIZE;
 const WALL_INTENSITY = 0.2;
 const FOOD_SMELL = 4;
 
@@ -512,45 +512,106 @@ function draw(elem){
 
     if (drawing){
   
-      if (elem.button != 0){
-        return;
-      }
-  
-      const canvasBounding = canvas.getBoundingClientRect();
-      const x = elem.clientX - canvasBounding.left;
-      const y = elem.clientY - canvasBounding.top;
-  
-      for (let currX = x - PEN_SIZE; currX <= x + PEN_SIZE; currX++){
-        for (let currY = y - PEN_SIZE; currY <= y + PEN_SIZE; currY++){
-          
-          let cellX = currX;
-          let cellY = currY;
-          
-          const calcX = x;
-          const calcY = y;
-  
-          const dist = Math.sqrt(Math.pow(cellX - calcX, 2) + Math.pow(cellY - calcY, 2));
-  
-          if (dist < PEN_SIZE){
-  
-            let p = context.getImageData(cellX, cellY, 1, 1);
-
-            let red = Math.max(Math.min(Math.floor(255 - (Math.pow(dist / PEN_SIZE, 2) * 255)) + p.data[0], 255), p.data[0]);
-            let green = Math.max(Math.min(Math.floor(77 - (Math.pow(dist / PEN_SIZE, 2) * 77)) + p.data[1], 77), p.data[1]);
-            let blue = Math.max(Math.min(Math.floor(210 - (Math.pow(dist / PEN_SIZE, 2) * 210)) + p.data[2], 210), p.data[2]);
-
-            let color = rgbToHex(
-              red - red % 10, green - green % 10, blue - blue % 10
-            );
-            
-            food[Math.floor(currX / 5)][Math.floor(currY / 5)] = clamp(food[Math.floor(currX / 5)][Math.floor(currY / 5)] + Math.floor(PEN_SIZE / dist), food[Math.floor(currX / 5)][Math.floor(currY / 5)], 10);
-            
-            console.log(food[Math.floor(currY / 5)][Math.floor(currX / 5)]);
-          }
+        if (elem.button != 0){
+            return;
         }
-      }
+  
+        const canvasBounding = canvas.getBoundingClientRect();
+        const x = elem.clientX - canvasBounding.left;
+        const y = elem.clientY - canvasBounding.top;
+  
+        for (let currX = x - PEN_SIZE; currX <= x + PEN_SIZE; currX++) {
+
+            for (let currY = y - PEN_SIZE; currY <= y + PEN_SIZE; currY++) {
+          
+                let cellX = currX;
+                let cellY = currY;
+            
+                const calcX = x;
+                const calcY = y;
+    
+                const dist = Math.sqrt(Math.pow(cellX - calcX, 2) + Math.pow(cellY - calcY, 2));
+    
+                if (dist < PEN_SIZE){
+    
+                    let p = context.getImageData(cellX, cellY, 1, 1);
+
+                    let red = Math.max(Math.min(Math.floor(255 - (Math.pow(dist / PEN_SIZE, 2) * 255)) + p.data[0], 255), p.data[0]);
+                    let green = Math.max(Math.min(Math.floor(77 - (Math.pow(dist / PEN_SIZE, 2) * 77)) + p.data[1], 77), p.data[1]);
+                    let blue = Math.max(Math.min(Math.floor(210 - (Math.pow(dist / PEN_SIZE, 2) * 210)) + p.data[2], 210), p.data[2]);
+
+                    let indexX = Math.max(0, Math.min(99, Math.floor(currX / 5)));
+                    let indexY = Math.max(0, Math.min(99, Math.floor(currY / 5)));
+
+                    if (document.getElementById("food").checked){
+
+                        if (wall[indexX][indexY] == 0){
+
+                            food[indexX][indexY] = clamp(
+                                food[indexX][indexY] +
+                                Math.floor(PEN_SIZE / dist), food[indexX][indexY], 10);
+                            
+                            context.fillStyle = "#a6ff4d";
+                            context.fillRect(Math.floor(currX / 5) * GRID_SIZE, Math.floor(currY / 5) * GRID_SIZE, GRID_SIZE, GRID_SIZE);
+                        }
+                    }
+
+                    if (document.getElementById("wall").checked){
+                        
+                        wall[indexX][indexY] = clamp(
+                            wall[indexX][indexY] +
+                            Math.floor(PEN_SIZE / dist), wall[indexX][indexY], 1);
+
+                        food[indexX][indexY] = 0;
+                    
+                        context.fillStyle = "#292929";
+                        context.fillRect(Math.floor(currX / 5) * GRID_SIZE, Math.floor(currY / 5) * GRID_SIZE, GRID_SIZE, GRID_SIZE);
+                    }
+
+                    if (document.getElementById("erase").checked) {
+                        
+                        wall[indexX][indexY] = 0;
+                        food[indexX][indexY] = 0;
+
+                        context.fillStyle = "black"
+                        context.fillRect(Math.floor(currX / 5) * GRID_SIZE, Math.floor(currY / 5) * GRID_SIZE, GRID_SIZE, GRID_SIZE);
+
+                        context.beginPath();
+                        context.fillStyle = "black";
+                        context.ellipse(homeX * GRID_SIZE, homeY * GRID_SIZE, 50, 50, Math.PI / 4, 0, 2 * Math.PI);
+                        context.fill();
+
+                        context.beginPath();
+                        context.fillStyle = "white";
+                        context.ellipse(homeX * GRID_SIZE, homeY * GRID_SIZE, 50, 50, Math.PI / 4, 0, 2 * Math.PI);
+                        context.fill();
+                    }
+                }
+            }
+        }
     }
 }
+
+canvas.addEventListener("click", function (event) {
+
+    if (document.getElementById("home").checked ){
+
+        if (wall[Math.floor(event.offsetX / 5)][Math.floor(event.offsetY / 5)] == 0){
+
+            homeX = Math.floor(event.offsetX / 5);
+            homeY = Math.floor(event.offsetY / 5);
+
+            context.fillStyle = "black";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            drawStuff();
+
+            context.beginPath();
+            context.fillStyle = "white";
+            context.ellipse(homeX * GRID_SIZE, homeY * GRID_SIZE, 50, 50, Math.PI / 4, 0, 2 * Math.PI);
+            context.fill();
+        }
+    }
+});
 
 canvas.addEventListener("mousedown", startDrawing);
 canvas.addEventListener("mouseup", endDrawing);
@@ -589,41 +650,9 @@ function main(){
         blurMap(posMarkers, BLUR_STRENGTH);
         blurMap(negMarkers, BLUR_STRENGTH);
         
-        //отрисовка феромонов
-        for (let i = 0 ; i < GRID_WIDTH; i++) {
-            for (let j = 0 ; j < GRID_WIDTH; j++) {
-    
-                posMarkers[i][j] = clamp(posMarkers[i][j], -1, 1);
-                negMarkers[i][j] = clamp(negMarkers[i][j], -1, 1);
-    
-                let green = clamp(lerp(Math.abs(posMarkers[i][j]), 0, 255), 0, 255);
-                let red = clamp(lerp(Math.abs(negMarkers[i][j]), 0, 255), 0, 255);
-    
-                context.fillStyle = `rgb(${red},${green},0)`;
-                context.fillRect(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE);
-    
-                if (food[i][j] > 0) {
-                    context.fillStyle = "#a6ff4d";
-                    context.fillRect(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE);
-                }
-    
-                if (wall[i][j] > 0) {
-                    context.fillStyle = "#292929";
-                    context.fillRect(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE);
-                }
-            }
-        }
-        
-        //домик
-        context.fillStyle = "white";
-        context.ellipse(homeX * GRID_SIZE, homeY * GRID_SIZE, 50, 50, Math.PI / 4, 0, 2 * Math.PI);
-        context.fill();
-    
-        //муравьи двигаться
-        ants.forEach((ant)=>{
-            ant.update();
-            ant.draw();
-        });
+        //отрисовка всего
+        drawStuff();
+       
     }, 1000 / SIM_SPEED);
 }
 
@@ -641,3 +670,46 @@ let playButton = document.getElementById("playButton");
 playButton.onclick = function(){
     main();
 }
+
+function drawStuff() {
+
+    for (let i = 0 ; i < GRID_WIDTH; i++) {
+        for (let j = 0 ; j < GRID_WIDTH; j++) {
+
+            posMarkers[i][j] = clamp(posMarkers[i][j], -1, 1);
+            negMarkers[i][j] = clamp(negMarkers[i][j], -1, 1);
+
+            let green = clamp(lerp(Math.abs(posMarkers[i][j]), 0, 255), 0, 255);
+            let red = clamp(lerp(Math.abs(negMarkers[i][j]), 0, 255), 0, 255);
+
+            context.fillStyle = `rgb(${red},${green},0)`;
+            context.fillRect(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE);
+
+            if (food[i][j] > 0) {
+                context.fillStyle = "#a6ff4d";
+                context.fillRect(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE);
+            }
+
+            if (wall[i][j] > 0) {
+                context.fillStyle = "#292929";
+                context.fillRect(i * GRID_SIZE, j * GRID_SIZE, GRID_SIZE, GRID_SIZE);
+            }
+        }
+    }
+
+    context.beginPath();
+    context.fillStyle = "white";
+    context.ellipse(homeX * GRID_SIZE, homeY * GRID_SIZE, 50, 50, Math.PI / 4, 0, 2 * Math.PI);
+    context.fill();
+
+    ants.forEach((ant)=>{
+        ant.update();
+        ant.draw();
+    });
+}
+
+document.getElementById("resetButton").addEventListener("click", function (){
+    clearInterval(mainLoopID);
+    init();
+    main();
+});
