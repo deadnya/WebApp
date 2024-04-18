@@ -2,16 +2,17 @@
   user-select: none;
 }
 body {
-  background-color: rgb(255, 255, 255);
+  background-color: black;
   margin: 0px;
+  color: white;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 #canvasContainer {
   position: relative;
   width: 75%;
   height: 500;
-  margin: 40px auto;
-  border: 1px solid black;
+  margin: 10px auto;
 }
 
 #canvas {
@@ -20,32 +21,35 @@ body {
   margin: 30px auto;
   margin-left: 30px;
   display: inline-block;
+  outline: white 3px solid;
 }
 
 #reset {
-  background-color: rgb(255, 186, 126);
-  border: none;
-  color: black;
+  background-color: rgb(0, 0, 0);
   padding: 12px 24px;
   text-align: center;
   text-decoration: none;
-  font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
+  border-width: 5px;
+  border: solid;
+  font-size: 16px;
+  border-color: white;
+  color: white;
 
   margin-left: auto;
   margin-right: auto;
-  margin-top: 20px;
+  margin-top: 8px;
   display: block;
 }
 
 #reset:hover {
-  background-color: rgb(255, 165, 68);
+  background-color: rgb(40, 40, 40);
 }
 
 .elem {
   display: inline-block;
-  margin: auto;
+  margin: 0px;
   vertical-align: middle;
 }
 
@@ -64,7 +68,7 @@ body {
   position: relative;
   top: 10%;
   height: 20px;
-  background-color: black;
+  background-color: white;
   margin: auto;
 }
 
