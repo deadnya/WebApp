@@ -1,3 +1,7 @@
+body {
+    margin: 0px;
+}
+
 #canvas {
     display: block;
     max-width: 500px;
@@ -54,4 +58,12 @@ button {
 
 button:hover {
     background-color: rgb(255, 165, 68);
+}
+
+p {
+    display: inline;
+}
+
+input {
+    display: inline;
 }

@@ -1,0 +1,67 @@
+#buttonContainer {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 2px;
+    background-color: rgb(255, 255, 255);
+    padding-bottom: 3px;
+    margin-bottom: 20px;
+}
+
+.link {
+    flex: 1;
+    display: inline-block;
+    position: relative;
+    color: white;
+    background-color: black;
+    max-width: 16.666%;
+    padding: 20px 20px;
+    margin-top: 0px;
+    text-align: center;
+    font-size: 4.5vh;
+    text-decoration: none;
+
+    font-family:'Courier New', Courier, monospace;
+}
+
+.link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 1.5px;
+    bottom: 23px;
+    left: 0;
+    background-color: #ffffff;
+    transform-origin: center;
+    transition: transform 0.15s ease-out;
+}
+
+#t1:hover::after {
+    transform: scaleX(0.42);
+    transform-origin: center;
+}
+
+#t2:hover::after {
+    transform: scaleX(0.65);
+    transform-origin: center;
+}
+
+#t3:hover::after {
+    transform: scaleX(0.65);
+    transform-origin: center;
+}
+
+#t4:hover::after {
+    transform: scaleX(0.36);
+    transform-origin: center;
+}
+
+#t5:hover::after {
+    transform: scaleX(0.34);
+    transform-origin: center;
+}
+
+#t6:hover::after {
+    transform: scaleX(0.65);
+    transform-origin: center;
+}

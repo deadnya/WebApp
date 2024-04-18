@@ -8,29 +8,42 @@
         <meta name="author" content="auth">
         <meta name="tags" content="maze,app,hits,html">
         <title>Maze app</title>
+
+        <div id="buttonContainer">
+            <a class="link" id="t1" href="./task1.html">Astar</a>
+            <a class="link" id="t2" href="./task2.html">Clusterz</a>
+            <a class="link" id="t3" href="./task3.html">Genetics</a>
+            <a class="link" id="t4" href="./task4.html">Ants</a>
+            <a class="link" id="t5" href="./task5.html">Tree</a>
+            <a class="link" id="t6" href="./task6.html">NeuroNet</a>
+        </div>
+
+        <link rel="stylesheet" href="transitions.css">
+        <script src="transitions.js" defer></script>
     </head>
 
     <body>
         <div class="menu">
-            <button type="button" id="solveButton" disabled="true">Solve</button>
-            <button type="button" id="resetButton">Reset</button>
-            <button type="button" id="newMazeButton">New Maze</button>
+            <div class="element">
+                <button type="button" id="solveButton" disabled="true">Solve</button>
+                <button type="button" id="resetButton">Reset</button>
+                <button type="button" id="newMazeButton">New Maze</button>
 
-            <input type="number" id="mazeSizeInput" value="31" min="5" max="200" placeholder="Maze Size"></input>
-            <input type="number" id="solveDelay" value="5" min="0" max="1000" placeholder="Delay between steps"></input>
+                <input type="range" min="5" max="200" value="31" class="slider" id="mazeSizeInput">
+                <p id="mazeSize">Size: 31</p>
 
-            <fieldset>
-                <legend>Maze edit mode:</legend>
+                <input type="range" min="0" max="100" value="5" class="slider" id="solveDelay">
+                <p id="delay">Step delay: 5</p>
 
                 <input type="radio" id="walls" name="mode" value="walls" checked="checked"></input>
-                <label for="walls">Walls</label>
+                <label for="walls" style="font-size: 18px;">Walls</label>
 
                 <input type="radio" id="start" name="mode" value="start"></input>
-                <label for="start">Start Point</label>
+                <label for="start" style="font-size: 18px;">Start Point</label>
 
                 <input type="radio" id="end" name="mode" value="end"></input>
-                <label for="end">End Point</label>
-            </fieldset>
+                <label for="end" style="font-size: 18px;">End Point</label>
+            </div>
         </div>
 
         <div id="maze">

@@ -608,3 +608,19 @@ document.getElementById('newMazeButton').addEventListener("click", function(){
     document.getElementById('newMazeButton').disabled = false;
     document.getElementById('solveButton').disabled = false;
 });
+
+let sliderSize = document.getElementById("mazeSizeInput");
+let sizeP = document.getElementById("mazeSize");
+sizeP.innerHTML = "Size: " + sliderSize.value;
+
+sliderSize.oninput = function() {
+    sizeP.innerHTML = "Size: " + this.value;
+}
+
+let delay = document.getElementById("solveDelay");
+let delayP = document.getElementById("delay");
+delayP.innerHTML = "Delay: " + delay.value;
+
+delay.oninput = function() {
+    delayP.innerHTML = "Delay: " + this.value;
+}
