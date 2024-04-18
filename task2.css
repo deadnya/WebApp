@@ -1,5 +1,6 @@
 body {
     margin: 0px;
+    background-color: black;
 }
 
 #canvas {
@@ -9,6 +10,7 @@ body {
     margin: 30px;
     margin-left: 30px;
     display: inline-block;
+    outline: white 3px solid;
 
     width: 500px;
     height: 500px;
@@ -19,29 +21,35 @@ body {
     width: 75%;
     height: 500;
     margin: 40px auto;
-    border: 1px solid black;
+}
+
+* {
+    color: white;
 }
 
 .butt {
 
-    background-color: rgb(255, 186, 126);
-    border: none;
-    color: black;
+    background-color: rgb(0, 0, 0);
     padding: 12px 24px;
     text-align: center;
     text-decoration: none;
-    font-size: 24px;
     cursor: pointer;
     border-radius: 5px;
+    border-width: 5px;
+    border: solid;
+    font-size: 16px;
 
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
     display: block;
+
+    width: 300px;
+    font-size: 32px;
 }
 
 .butt:hover {
-    background-color: rgb(255, 165, 68);
+    background-color: rgb(40, 40, 40);
 }
 
 .elem {

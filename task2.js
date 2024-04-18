@@ -17,6 +17,18 @@ let collorCentroid = [
     '#0048ff', '#0400ff', '#6a00ff', '#dd00ff', '#ff0084'
 ];
 
+let randSeeds = [
+    Date.now() * Math.random(),
+    Date.now() * Math.random() * 2,
+    Date.now() * Math.random() * 3,
+    Date.now() * Math.random() * 4,
+    Date.now() * Math.random() * 5,
+    Date.now() * Math.random() * 6,
+    Date.now() * Math.random() * 7,
+    Date.now() * Math.random() * 8,
+    Date.now() * Math.random() * 9
+];
+
 var kMeansCentroids = [];
 var cMeansCentroids = [];
 
@@ -63,7 +75,7 @@ function addCentroid(){
 
     for (let i = 0; i < n; i++){
 
-        let randomdot = Math.floor(Math.random() * canvasDots.length);
+        let randomdot = Math.floor(splitmix32(randSeeds[i%10]) * canvasDots.length);
 
         let Centroid = {
             coardX: canvasDots[randomdot].dotx,
@@ -128,7 +140,7 @@ function showClusters(){
 
 document.getElementById("step").onclick = main;
 
-let iters = 0;
+let fin = false;
 
 function calcCentroids() {
 
@@ -147,7 +159,7 @@ function calcCentroids() {
         let sredY = sumY / kMeansClusters[i].length;
 
         if ((sredX != kMeansCentroids[i].coardX || sredY != kMeansCentroids[i].coardY)){
-            iters++;
+            fin = true;
         }
 
         if (kMeansClusters[i].length !== 0) {
@@ -170,7 +182,7 @@ function kMeans(){
         return;
     }
 
-    while (iters < 10000){
+    while (!fin){
         calcCentroids();
     }
 
@@ -179,7 +191,7 @@ function kMeans(){
 
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
+        var j = Math.floor(splitmix32(randSeeds[i%10]) * (i + 1));
         var temp = array[i];
         array[i] = array[j];
         array[j] = temp;
@@ -192,7 +204,7 @@ function getRandomValues(size){
 
     for (let i = 0; i < size - 1; i++){
 
-        let value = Math.random() * remains;
+        let value = splitmix32(randSeeds[i%10]) * remains;
         remains -= value;
 
         vals[i] = value;
@@ -545,9 +557,12 @@ function start(similarityMatrix, availabilityMatrix, responsibilityMatrix, gamma
 
 function main(){
 
-    usedColors = [];
+    if (canvasDots.length < MIN_DOTS){
+        alert("Min dots: 3");
+        return;
+    }
 
-    iters = 0;
+    usedColors = [];
 
     kMeansCentroids = [];
     cMeansCentroids = [];
@@ -562,10 +577,26 @@ function main(){
 
     clusterCount = usedColors.length;
 
-    console.log("A");
-
     cMeans();
 
-    console.log("A");
     kMeans();
 }
+
+function splitmix32(a) {
+    a |= 0;
+    a = a + 0x9e3779b9 | 0;
+    let t = a ^ a >>> 16;
+    t = Math.imul(t, 0x21f0aaad);
+    t = t ^ t >>> 15;
+    t = Math.imul(t, 0x735a2d97);
+    return ((t = t ^ t >>> 15) >>> 0) / 4294967296;
+}
+
+const MIN_DOTS = 3;
+
+document.getElementById("resetButt").onclick = function() {
+    canvasDots = [];
+
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, 1000, 1000);
+};
