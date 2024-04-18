@@ -2,8 +2,8 @@
 
 //Network settings DO NOT CHANBGE
 const IMG_DIMENSIONS = 50 * 50;
-const HIDDEN_LAYER_1 = 150;
-const HIDDEN_LAYER_2 = 150;
+const HIDDEN_LAYER_1 = 240;
+const HIDDEN_LAYER_2 = 240;
 
 
 var index = 0;
