@@ -1,1 +1,3 @@
 yea thats an app
+
+WE WILL ADD TREE LATER ITS JUST A BUT CURSED ATM
