@@ -631,4 +631,4 @@ delay.oninput = function() {
     delayP.innerHTML = "Delay: " + this.value;
 }
 
-getNewMaze();
+getNewMaze();   
