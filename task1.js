@@ -576,6 +576,11 @@ document.getElementById('resetButton').addEventListener("click", function(){
 });
 
 document.getElementById('newMazeButton').addEventListener("click", function(){
+    getNewMaze();
+});
+
+function getNewMaze() {
+
     document.getElementById('newMazeButton').disabled = true;
 
     let oldN = n;
@@ -607,7 +612,8 @@ document.getElementById('newMazeButton').addEventListener("click", function(){
 
     document.getElementById('newMazeButton').disabled = false;
     document.getElementById('solveButton').disabled = false;
-});
+
+}
 
 let sliderSize = document.getElementById("mazeSizeInput");
 let sizeP = document.getElementById("mazeSize");
@@ -624,3 +630,5 @@ delayP.innerHTML = "Delay: " + delay.value;
 delay.oninput = function() {
     delayP.innerHTML = "Delay: " + this.value;
 }
+
+getNewMaze();
