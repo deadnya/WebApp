@@ -19,7 +19,6 @@
         </div>
 
         <link rel="stylesheet" href="transitions.css">
-        <script src="transitions.js" defer></script>
     </head>
 
     <body>
@@ -29,20 +28,20 @@
                 <button type="button" id="resetButton">Reset</button>
                 <button type="button" id="newMazeButton">New Maze</button>
 
-                <input type="range" min="5" max="200" value="31" class="slider" id="mazeSizeInput">
+                <input type="range" min="5" max="100" value="31" class="slider" id="mazeSizeInput">
                 <p id="mazeSize">Size: 31</p>
 
                 <input type="range" min="0" max="100" value="5" class="slider" id="solveDelay">
                 <p id="delay">Step delay: 5</p>
 
                 <input type="radio" id="walls" name="mode" value="walls" checked="checked"></input>
-                <label for="walls" style="font-size: 18px;">Walls</label>
+                <label for="walls">Walls</label>
 
                 <input type="radio" id="start" name="mode" value="start"></input>
-                <label for="start" style="font-size: 18px;">Start Point</label>
+                <label for="start">Start Point</label>
 
                 <input type="radio" id="end" name="mode" value="end"></input>
-                <label for="end" style="font-size: 18px;">End Point</label>
+                <label for="end">End Point</label>
             </div>
         </div>
 

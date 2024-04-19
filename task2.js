@@ -9,7 +9,7 @@ const ctx = canvas.getContext('2d');
 ctx.scale(2, 2);
 let canvasDots = [];
 
-var usedColors = [];
+let usedColors = [];
 
 let collorCentroid = [
     '#ff0000', '#ff3700', '#ff9100', '#fff200', '#b7ff00',
@@ -29,14 +29,14 @@ let randSeeds = [
     Date.now() * Math.random() * 9
 ];
 
-var kMeansCentroids = [];
-var cMeansCentroids = [];
+let kMeansCentroids = [];
+let cMeansCentroids = [];
 
-var kMeansDistancesToCentroids = [];
-var cMeansDistancesToCentroids = [];
+let kMeansDistancesToCentroids = [];
+let cMeansDistancesToCentroids = [];
 
-var kMeansClusters = [];
-var cMeansClusters = [];
+let kMeansClusters = [];
+let cMeansClusters = [];
 
 shuffleArray(collorCentroid);
 
@@ -158,7 +158,7 @@ function calcCentroids() {
         let sredX = sumX / kMeansClusters[i].length;
         let sredY = sumY / kMeansClusters[i].length;
 
-        if ((sredX != kMeansCentroids[i].coardX || sredY != kMeansCentroids[i].coardY)){
+        if ((sredX !== kMeansCentroids[i].coardX || sredY !== kMeansCentroids[i].coardY)){
             fin = true;
         }
 
@@ -178,7 +178,7 @@ function calcCentroids() {
 
 function kMeans(){
 
-    if (addCentroid() == undefined) {
+    if (addCentroid() === undefined) {
         return;
     }
 
@@ -189,9 +189,9 @@ function kMeans(){
 }
 
 function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(splitmix32(randSeeds[i%10]) * (i + 1));
-        var temp = array[i];
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(splitmix32(randSeeds[i%10]) * (i + 1));
+        let temp = array[i];
         array[i] = array[j];
         array[j] = temp;
     }
@@ -423,10 +423,6 @@ function affinityPropagation() {
 		}
 	}
 
-	for (let i = 0; i < canvasDots.length; i++) {
-		console.log('r['+i+']['+i+'] =', responsibilityMatrix[i][i],'a['+i+']['+i+'] =', availabilityMatrix[i][i]);
-	}
-
 	//find the exemplar on the diagonal sum
 	let exemplars = [];
 	let center = [];
@@ -488,7 +484,7 @@ function affinityPropagation() {
 
         for (let j = 0; j < colors.length; j++){
 
-            if (colors[j].id == assignements[i]){
+            if (colors[j].id === assignements[i]){
 
                 usedColors.push(colors[j].color);
 
@@ -503,8 +499,6 @@ function affinityPropagation() {
 }
 
 function eucDist(pos1, pos2) {
-
-	console.log(pos1, pos2, 'cazzo');
 
 	let d = Math.pow(pos1.dotx - pos2.dotx, 2) + Math.pow(pos1.doty - pos2.doty, 2);
 
@@ -523,8 +517,6 @@ function start(similarityMatrix, availabilityMatrix, responsibilityMatrix, gamma
 	for (let i = 0; i < canvasDots.length; i++) {
 
 		let pos1 = canvasDots[i];
-
-		console.log(canvasDots[i])
 
 		similarityMatrix[i] = [];
 		availabilityMatrix[i] = [];
@@ -545,7 +537,7 @@ function start(similarityMatrix, availabilityMatrix, responsibilityMatrix, gamma
 
 		let avg = 0;
 
-		for (var r = 0; r < canvasDots.length; r++) {
+		for (let r = 0; r < canvasDots.length; r++) {
 			avg += similarityMatrix[r][k];
 		}
 

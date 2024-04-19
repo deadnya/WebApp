@@ -1,29 +1,29 @@
 "use strict";
 
-var n = 31;
+let n = 31;
 const wall = 1;
 const hole = 0;
 const start = 2;
 const end = 3;
 
-var pathStartX = 1;
-var pathStartY = 1;
-var pathEndX = n - 2;
-var pathEndY = n - 2;
+let pathStartX = 1;
+let pathStartY = 1;
+let pathEndX = n - 2;
+let pathEndY = n - 2;
 
-var cancelExecution = false;
+let cancelExecution = false;
 
-var startExists = true;
-var endExists = true;
+let startExists = true;
+let endExists = true;
 
-var area = [];
+let area = [];
 
 n = undefined;
 
 function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        let temp = array[i];
         array[i] = array[j];
         array[j] = temp;
     }
@@ -32,7 +32,7 @@ function shuffleArray(array) {
 function getIndex(arr, obj) {
     
     for (let i = 0; i < arr.length; i++){
-        if (arr[i].x == obj.x && arr[i].y == obj.y){
+        if (arr[i].x === obj.x && arr[i].y === obj.y){
             return i;
         }
     }
@@ -66,9 +66,9 @@ function recursiveBacktracking(x, y){
 
     for (let i = 0; i < 4; i++){
         
-        if (directions[i] == 'up'){
+        if (directions[i] === 'up'){
             
-            if ((y > 2) && (area[y - 2][x] == wall)){
+            if ((y > 2) && (area[y - 2][x] === wall)){
 
 
                 for (let j = 0; j < 3; j++) {
@@ -79,9 +79,9 @@ function recursiveBacktracking(x, y){
             }
         }
         
-        else if (directions[i] == 'down'){
+        else if (directions[i] === 'down'){
             
-            if ((y + 2 < n - 1) && (area[y + 2][x] == wall)){
+            if ((y + 2 < n - 1) && (area[y + 2][x] === wall)){
 
                 for (let j = 0; j < 3; j++) {
                     area[y + j][x] = hole;
@@ -92,9 +92,9 @@ function recursiveBacktracking(x, y){
 
         }
 
-        else if (directions[i] == 'left'){
+        else if (directions[i] === 'left'){
             
-            if ((x > 2) && (area[y][x - 2] == wall)){
+            if ((x > 2) && (area[y][x - 2] === wall)){
 
                 for (let j = 0; j < 3; j++) {
                     area[y][x - 2 + j] = hole;
@@ -105,9 +105,9 @@ function recursiveBacktracking(x, y){
 
         }
 
-        else if (directions[i] == 'right'){
+        else if (directions[i] === 'right'){
             
-            if ((x + 2 < n - 1) && (area[y][x + 2] == wall)){
+            if ((x + 2 < n - 1) && (area[y][x + 2] === wall)){
 
                 for (let j = 0; j < 3; j++) {
                     area[y][x + j] = hole;
@@ -178,7 +178,7 @@ async function findPath(startX, startY, endX, endY){
         closed.push(element);
         document.getElementById((element.y + ' ') + (element.x + '')).style.background = 'red';
 
-        if (element.x == endX && element.y == endY){
+        if (element.x === endX && element.y === endY){
             
             document.getElementById((element.y + ' ') + (element.x + '')).style.background = 'lightgreen';
 
@@ -188,15 +188,12 @@ async function findPath(startX, startY, endX, endY){
             closed.reverse();
 
             closed.forEach(function (elem){
-                console.log(elem.x, elem.y);
-
-                if (elem.x == tempX && elem.y == tempY){
-                    console.log(1);
+                if (elem.x === tempX && elem.y === tempY){
                     document.getElementById((elem.y + ' ') + (elem.x + '')).style.background = '#817aff';
                     tempX = elem.fromX;
                     tempY = elem.fromY;
 
-                    if (elem.x == startX && elem.y == startY){
+                    if (elem.x === startX && elem.y === startY){
                         document.getElementById((elem.y + ' ') + (elem.x + '')).style.background = 'pink';
                     }
                 }
@@ -210,18 +207,18 @@ async function findPath(startX, startY, endX, endY){
         let gScore = distances[element.y][element.x].g + 1;
         let gScoreIsBest = false;
 
-        if (element.y > 0 && area[element.y - 1][element.x] != wall){
+        if (element.y > 0 && area[element.y - 1][element.x] !== wall){
 
             let currX = element.x;
             let currY = element.y - 1;
             
             let neighbour = getCell(currX, currY, element.x, element.y);
 
-            if (getIndex(closed, neighbour) == -1 && area[currY][currX] != wall ){
+            if (getIndex(closed, neighbour) === -1 && area[currY][currX] !== wall ){
 
                 let ind = getIndex(openQueue, neighbour);
 
-                if (ind == -1){
+                if (ind === -1){
 
                     distances[currY][currX] = getDist(currX, currY, endX, endY, gScore);
                     gScoreIsBest = true;
@@ -241,18 +238,18 @@ async function findPath(startX, startY, endX, endY){
             }
         }
 
-        if (element.y < n - 1 && area[element.y + 1][element.x] != wall){
+        if (element.y < n - 1 && area[element.y + 1][element.x] !== wall){
 
             let currX = element.x;
             let currY = element.y + 1;
             
             let neighbour = getCell(currX, currY, element.x, element.y);
 
-            if (getIndex(closed, neighbour) == -1 && area[currY][currX] != wall ){
+            if (getIndex(closed, neighbour) === -1 && area[currY][currX] !== wall ){
 
                 let ind = getIndex(openQueue, neighbour);
 
-                if (ind == -1){
+                if (ind === -1){
 
                     distances[currY][currX] = getDist(currX, currY, endX, endY, gScore);
                     gScoreIsBest = true;
@@ -272,18 +269,18 @@ async function findPath(startX, startY, endX, endY){
             }
         }
 
-        if (element.x > 0 && area[element.y][element.x - 1] != wall){
+        if (element.x > 0 && area[element.y][element.x - 1] !== wall){
 
             let currX = element.x - 1;
             let currY = element.y;
             
             let neighbour = getCell(currX, currY, element.x, element.y);
 
-            if (getIndex(closed, neighbour) == -1 && area[currY][currX] != wall ){
+            if (getIndex(closed, neighbour) === -1 && area[currY][currX] !== wall ){
 
                 let ind = getIndex(openQueue, neighbour);
 
-                if (ind == -1){
+                if (ind === -1){
 
                     distances[currY][currX] = getDist(currX, currY, endX, endY, gScore);
                     gScoreIsBest = true;
@@ -303,18 +300,18 @@ async function findPath(startX, startY, endX, endY){
             }
         }
 
-        if (element.x < n - 1 && area[element.y][element.x + 1] != wall){
+        if (element.x < n - 1 && area[element.y][element.x + 1] !== wall){
 
             let currX = element.x + 1;
             let currY = element.y;
             
             let neighbour = getCell(currX, currY, element.x, element.y);
 
-            if (getIndex(closed, neighbour) == -1 && area[currY][currX] != wall ){
+            if (getIndex(closed, neighbour) === -1 && area[currY][currX] !== wall ){
 
                 let ind = getIndex(openQueue, neighbour);
 
-                if (ind == -1){
+                if (ind === -1){
 
                     distances[currY][currX] = getDist(currX, currY, endX, endY, gScore);
                     gScoreIsBest = true;
@@ -354,14 +351,14 @@ function changeState(elem){
 
     if (document.getElementById('walls').checked){
 
-        if (area[y][x] == hole){
+        if (area[y][x] === hole){
 
             elem.style.background = 'black';
             area[y][x] = wall;
 
         } 
         
-        else if (area[y][x] == wall){
+        else if (area[y][x] === wall){
 
             elem.style.background = 'white';
             area[y][x] = hole;
@@ -371,7 +368,7 @@ function changeState(elem){
 
     if (document.getElementById('start').checked){
 
-        if (area[y][x] == hole){
+        if (area[y][x] === hole){
 
             if (startExists){
                 let start = document.getElementById((pathStartY + ' ') + (pathStartX + ''));
@@ -388,7 +385,7 @@ function changeState(elem){
             startExists = true;
         } 
         
-        else if (area[y][x] == start){
+        else if (area[y][x] === start){
 
             elem.style.background = 'white';
             area[y][x] = hole;
@@ -399,7 +396,7 @@ function changeState(elem){
 
     if (document.getElementById('end').checked){
 
-        if (area[y][x] == hole){
+        if (area[y][x] === hole){
 
             if (endExists){
                 let end = document.getElementById((pathEndY + ' ') + (pathEndX + ''));
@@ -416,7 +413,7 @@ function changeState(elem){
             endExists = true;
         } 
         
-        else if (area[y][x] == end){
+        else if (area[y][x] === end){
 
             elem.style.background = 'white';
             area[y][x] = hole;
@@ -428,11 +425,11 @@ function changeState(elem){
 
 function showMaze(oldN) {
 
-    let tableSize = 0.9 * window.innerWidth;
+    let tableSize = 0.31 * window.innerWidth;
 
     let div = document.getElementById('maze');
 
-    if (oldN != n){
+    if (oldN !== n){
 
         if (document.getElementById("mazeTable") != undefined){
             document.getElementById("mazeTable").remove();
@@ -456,22 +453,22 @@ function showMaze(oldN) {
 
                 let sq = document.createElement('div');
 
-                if (area[i][j] == wall){
+                if (area[i][j] === wall){
                     sq.className = 'square-wall';
                     sq.style.background = 'black';
                 } 
 
-                if (area[i][j] == hole) {
+                if (area[i][j] === hole) {
                     sq.className = 'square-hole';
                     sq.style.background = 'white';
                 }
 
-                if (area[i][j] == start) {
+                if (area[i][j] === start) {
                     sq.className = 'square-start';
                     sq.style.background = 'pink';
                 }
 
-                if (area[i][j] == end) {
+                if (area[i][j] === end) {
                     sq.className = 'square-end';
                     sq.style.background = 'lightgreen';
                 }
@@ -502,22 +499,22 @@ function showMaze(oldN) {
                 let sq = document.getElementById((i + ' ') + (j + ''));
                 
 
-                if (area[i][j] == wall){
+                if (area[i][j] === wall){
                     sq.className = 'square-wall';
                     sq.style.background = 'black';
                 } 
 
-                if (area[i][j] == hole) {
+                if (area[i][j] === hole) {
                     sq.className = 'square-hole';
                     sq.style.background = 'white';
                 }
 
-                if (area[i][j] == start) {
+                if (area[i][j] === start) {
                     sq.className = 'square-start';
                     sq.style.background = 'pink';
                 }
 
-                if (area[i][j] == end) {
+                if (area[i][j] === end) {
                     sq.className = 'square-end';
                     sq.style.background = 'lightgreen';
                 }
@@ -530,15 +527,15 @@ function resetMaze(){
     for (let y = 0; y < n; y++){
         for (let x = 0; x < n; x++){
 
-            if (area[y][x] != wall) {
+            if (area[y][x] !== wall) {
                 document.getElementById((y + ' ') + (x + '')).style.background = 'white';
             }
 
-            if (area[y][x] == start) {
+            if (area[y][x] === start) {
                 document.getElementById((y + ' ') + (x + '')).style.background = 'pink';
             }
 
-            if (area[y][x] == end) {
+            if (area[y][x] === end) {
                 document.getElementById((y + ' ') + (x + '')).style.background = 'lightgreen';
             }
 
@@ -592,7 +589,7 @@ function getNewMaze() {
     pathEndX = n - 2;
     pathEndY = n - 2;
 
-    if (n % 2 == 0){
+    if (n % 2 === 0){
         pathEndX -= 1;
         pathEndY -= 1;
     }

@@ -21,7 +21,7 @@ class TreeNode {
     
     isLeaf() {
 
-        if (this.childNodes == undefined || this.childNodes.length == 0) return true; 
+        if (this.childNodes === undefined || this.childNodes.length === 0) return true; 
         return false;
 
     }
@@ -53,7 +53,7 @@ function optimizeTree(currNode) {
 
         if (curVal !== undefined) {
 
-            if (currNode.childNodes[i].value != curVal) {
+            if (currNode.childNodes[i].value !== curVal) {
 
                 allChildNodesSame = false;
                 break;
@@ -168,14 +168,9 @@ function makeDecision() {
     let currentNode = rootMemory;
     let counter = root.data[0].length;
 
-    while (currentNode != undefined) {
-
-        console.log(counter);
-        console.log(currentNode);
+    while (currentNode !== undefined) {
 
         if (!currentNode.visited) {
-
-            console.log('vis');
 
             setColor('rgb(40, 40, 40)', currentNode);
 
@@ -184,11 +179,11 @@ function makeDecision() {
 			}
         }
 
-        if (doubleDecision(currentNode, array) != -1) {
+        if (doubleDecision(currentNode, array) !== -1) {
             currentNode = currentNode.childNodes[doubleDecision(currentNode, array)];
         }
         
-        else if (currentNode != undefined) {
+        else if (currentNode !== undefined) {
 
             for (let j = 0; j < currentNode.childNodes.length; j++) {
 
@@ -202,7 +197,7 @@ function makeDecision() {
             } 
         }
 
-        if (currentNode != undefined &&
+        if (currentNode !== undefined &&
             currentNode.name !== "root" &&
             currentNode.parent.decisionMaker === root.data[0][root.data[0].length-1] &&
             !currentNode.visited) {
@@ -253,7 +248,7 @@ function getRGB(str){
 
 function doubleDecision(currentNode, array) {
 
-    if (currentNode != undefined && currentNode.childNodes[0] != undefined) {
+    if (currentNode !== undefined && currentNode.childNodes[0] !== undefined) {
 
         if (currentNode.childNodes[0].name[0] === "<") {
 

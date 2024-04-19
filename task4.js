@@ -97,7 +97,7 @@ class Ant {
                     }
                 }
     
-                if (foodX != -1) break;
+                if (foodX !== -1) break;
             }
     
             this.track(foodX, foodY);
@@ -123,10 +123,10 @@ class Ant {
             let current = map?.[this.x + (sampleLocs[i].x)]?.[this.y + (sampleLocs[i].y)]
                 * Math.pow(dist(homeX, homeY, this.x, this.y), 2) * CANVAS_WIDTH * 1000;
 
-            if (wall?.[this.x + (sampleLocs[i].x)]?.[this.y + (sampleLocs[i].y)] == 1)
+            if (wall?.[this.x + (sampleLocs[i].x)]?.[this.y + (sampleLocs[i].y)] === 1)
                 current = 0;
 
-            if (wall?.[this.x + (dirs[i].x)]?.[this.y + (dirs[i].y)] == 1)
+            if (wall?.[this.x + (dirs[i].x)]?.[this.y + (dirs[i].y)] === 1)
                 current = 100000 * -scalar;
 
             possibles.push(current ?? 0);
@@ -138,7 +138,7 @@ class Ant {
     //следоватб
     track(trackingX, trackingY) {
 
-        if (trackingX != -1) {
+        if (trackingX !== -1) {
 
             let dirX = 0, dirY = 0;
 
@@ -147,7 +147,7 @@ class Ant {
             if (trackingY > this.y) dirY = 1;
             if (trackingY < this.y) dirY = -1;
 
-            if (wall[this.x + dirX][this.y + dirY] == 0)
+            if (wall[this.x + dirX][this.y + dirY] === 0)
                 this.direction = getDirectionIndex(dirX, dirY);
         }
     }
@@ -155,7 +155,7 @@ class Ant {
     //случайное движение
     wander() {
 
-        if (Math.floor(randomRange(0, ANT_RANDOM_MOVE_CHANCE)) == 0) {
+        if (Math.floor(randomRange(0, ANT_RANDOM_MOVE_CHANCE)) === 0) {
 
             this.direction += Math.floor(randomRange(-1, 2));   
             this.direction = wrap(this.direction, 0, dirs.length);
@@ -340,7 +340,7 @@ function getDirectionIndex(x, y) {
 
     for (let i = 0; i < dirs.length; i++) {
 
-        if (dirs[i].x == x && dirs[i].y == y)
+        if (dirs[i].x === x && dirs[i].y === y)
             return i;
     }
 
@@ -500,8 +500,8 @@ function endDrawing(){
 }
 
 function componentToHex(c) {
-    var hex = c.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
+    let hex = c.toString(16);
+    return hex.length === 1 ? "0" + hex : hex;
 }
 
 function rgbToHex(r, g, b) {
@@ -512,7 +512,7 @@ function draw(elem){
 
     if (drawing){
   
-        if (elem.button != 0){
+        if (elem.button !== 0){
             return;
         }
   
@@ -545,7 +545,7 @@ function draw(elem){
 
                     if (document.getElementById("food").checked){
 
-                        if (wall[indexX][indexY] == 0){
+                        if (wall[indexX][indexY] === 0){
 
                             food[indexX][indexY] = clamp(
                                 food[indexX][indexY] +
@@ -596,7 +596,7 @@ canvas.addEventListener("click", function (event) {
 
     if (document.getElementById("home").checked ){
 
-        if (wall[Math.floor(event.offsetX / 5)][Math.floor(event.offsetY / 5)] == 0){
+        if (wall[Math.floor(event.offsetX / 5)][Math.floor(event.offsetY / 5)] === 0){
 
             homeX = Math.floor(event.offsetX / 5);
             homeY = Math.floor(event.offsetY / 5);
@@ -638,22 +638,30 @@ startButton.onclick = function() {
 }
 
 let mainLoopID;
+let isOnline = false;
 
 function main(){
-    mainLoopID = setInterval(()=>{
 
-        //сброс изображения
-        context.fillStyle = "black";
-        context.fillRect(0, 0, canvas.width, canvas.height);
-    
-        //рассеивание феромонов
-        blurMap(posMarkers, BLUR_STRENGTH);
-        blurMap(negMarkers, BLUR_STRENGTH);
+    if (!isOnline){
+
+        isOnline = true;
+
+        mainLoopID = setInterval(()=>{
+
+            //сброс изображения
+            context.fillStyle = "black";
+            context.fillRect(0, 0, canvas.width, canvas.height);
         
-        //отрисовка всего
-        drawStuff();
-       
-    }, 1000 / SIM_SPEED);
+            //рассеивание феромонов
+            blurMap(posMarkers, BLUR_STRENGTH);
+            blurMap(negMarkers, BLUR_STRENGTH);
+            
+            //отрисовка всего
+            drawStuff();
+        
+        }, 1000 / SIM_SPEED);
+
+    }
 }
 
 let resetButton = document.getElementById("resetButton");
@@ -663,7 +671,13 @@ resetButton.onclick = function(){
 
 let pauseButton = document.getElementById("pauseButton");
 pauseButton.onclick = function(){
-    clearInterval(mainLoopID);
+
+    if (isOnline){
+
+        isOnline = false;
+        
+        clearInterval(mainLoopID);
+    }
 }
 
 let playButton = document.getElementById("playButton");
@@ -712,4 +726,11 @@ document.getElementById("resetButton").addEventListener("click", function (){
     clearInterval(mainLoopID);
     init();
     main();
+
+    isOnline = false;
+
+    homeX = GRID_SIZE;
+    homeY = GRID_SIZE;
+
+    drawStuff();
 });

@@ -1,5 +1,10 @@
 const canvas = document.querySelector("canvas");
+
+canvas.height = 1000;
+canvas.width = 1000;
+
 const context = canvas.getContext("2d");
+context.scale(2, 2);
 
 let points = []; 
 
@@ -13,24 +18,7 @@ function handleMouseClick(e) {
     let clientX = e.clientX - canvasBounds.left;
     let clientY = e.clientY - canvasBounds.top;
 
-    context.beginPath();
-
-    if (points.length >= 1) {
-        points.forEach(vert => {
-            let [vertX, vertY] = vert;
-            let dx = clientX - vertX;
-            let dy = clientY - vertY;
-            let distance = Math.sqrt(dx * dx + dy * dy);
-            let offsetX = dx * 10 / distance;
-            let offsetY = dy * 10 / distance;
-
-            context.moveTo(vertX + offsetX, vertY + offsetY);
-            context.lineTo(clientX, clientY);
-            context.strokeStyle = "rgba(235,235,235,0.5)";
-            context.stroke();
-        });
-    }
-
+    context.fillStyle = "white";
     context.beginPath();
     context.arc(clientX, clientY, 15, 0, 2 * Math.PI, false);
     context.fill();
@@ -40,10 +28,8 @@ function handleMouseClick(e) {
 }
 
 function drawPath(bestPath, color) {
-    console.log(bestPath.slice());
     const extendedPath = bestPath.slice();
     extendedPath.splice(extendedPath.length - 1, 0, bestPath[0].slice());
-    console.log(extendedPath.slice());
 
     for (let i = 0; i < extendedPath.length - 2; ++i) {
         const delta = [extendedPath[i + 1][0] - extendedPath[i][0], extendedPath[i + 1][1] - extendedPath[i][1]];
@@ -54,7 +40,7 @@ function drawPath(bestPath, color) {
         context.lineTo(extendedPath[i + 1][0] - delta[0] * 10 / s, extendedPath[i + 1][1] - delta[1] * 10 / s);
         
         context.strokeStyle = color;
-        context.lineWidth = 10;
+        context.lineWidth = 2;
         context.stroke();
     }
 }
@@ -195,8 +181,10 @@ async function geneticAlgorithm(){
             finish -= 1;
         }
 
+        drawStuff(bestChromosome);
+
         if (finish === 0){
-            drawPath(bestChromosome, "rgb(0,0,0)")
+            drawPath(bestChromosome, "rgb(255,255,255)")
             break;
         }
 
@@ -204,4 +192,18 @@ async function geneticAlgorithm(){
     }
 }
 
+function drawStuff(currPath) {
+    
+    context.fillStyle = "black";
+    context.fillRect(0, 0, canvas.width, canvas.height);
 
+    drawPath(currPath, "rgb(100,100,100)");
+
+    context.fillStyle = "white";
+
+    for (let i = 0; i < points.length; i++) {
+        context.beginPath();
+        context.arc(points[i][0], points[i][1], 15, 0, 2 * Math.PI, false);
+        context.fill();
+    }
+}

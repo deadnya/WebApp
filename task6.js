@@ -6,13 +6,13 @@ const HIDDEN_LAYER_1 = 240;
 const HIDDEN_LAYER_2 = 240;
 
 
-var index = 0;
-var t_index = 0;
+let index = 0;
+let t_index = 0;
 
-var fetched_images = undefined;
-var fetched_labels = undefined;
-var test_images = undefined
-var test_labels = undefined;
+let fetched_images = undefined;
+let fetched_labels = undefined;
+let test_images = undefined
+let test_labels = undefined;
 
 
 class Matrix {
@@ -396,19 +396,19 @@ class NeuralNetwork {
 }
 
 function request(req){
-  if (req == 'reset'){
+  if (req === 'reset'){
     index = 0;
     t_index = 0;
     return;
   }
 
-  if (req == 'train'){
+  if (req === 'train'){
     let val = JSON.stringify([fetched_images[index], fetched_labels[index]]);
     index++;
     return val;
   }
 
-  if (req == 'test'){
+  if (req === 'test'){
     let val = JSON.stringify([test_images[t_index], test_labels[t_index]]);
     t_index++;
     return val;
@@ -579,8 +579,8 @@ function endDrawing(){
 }
 
 function componentToHex(c) {
-  var hex = c.toString(16);
-  return hex.length == 1 ? "0" + hex : hex;
+  let hex = c.toString(16);
+  return hex.length === 1 ? "0" + hex : hex;
 }
 
 function rgbToHex(r, g, b) {
@@ -591,7 +591,7 @@ function draw(elem){
 
   if (drawing){
 
-    if (elem.button != 0){
+    if (elem.button !== 0){
       return;
     }
 
