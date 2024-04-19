@@ -26,7 +26,7 @@ function handleMouseClick(e) {
 
             context.moveTo(vertX + offsetX, vertY + offsetY);
             context.lineTo(clientX, clientY);
-            context.strokeStyle = "rgba(235,235,235,0.255)";
+            context.strokeStyle = "rgba(235,235,235,0.5)";
             context.stroke();
         });
     }
@@ -59,6 +59,7 @@ function drawPath(bestPath, color) {
     }
 }
 
+
 function shuffleArray(array) {
     const shuffled = array.slice();
     for (let i = shuffled.length - 1; i > 0; i--) {
@@ -66,6 +67,15 @@ function shuffleArray(array) {
         [shuffled[i], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[i]];
     }
     return shuffled;
+}
+
+function calculateDistance(chromosome) {
+    return chromosome.reduce((totalDistance, point, index) => {
+        const nextPoint = chromosome[(index + 1) % chromosome.length];
+        const deltaX = nextPoint[0] - point[0];
+        const deltaY = nextPoint[1] - point[1];
+        return totalDistance + Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    }, 0);
 }
 
 function createInitialPopulation(firstGeneration) {
@@ -88,16 +98,6 @@ function createInitialPopulation(firstGeneration) {
 
     return population;
 }
-
-function calculateDistance(chromosome) {
-    return chromosome.reduce((totalDistance, point, index) => {
-        const nextPoint = chromosome[(index + 1) % chromosome.length];
-        const deltaX = nextPoint[0] - point[0];
-        const deltaY = nextPoint[1] - point[1];
-        return totalDistance + Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-    }, 0);
-}
-
 
 function twoRandomNumbers(min, max){
     let a = Math.floor(Math.random() * (max - min) + min);
@@ -157,9 +157,12 @@ async function waitAsync(time) {
 }
 
 
-async function geneticAlgorithm() {
-    const firstGeneration = points.slice();
+async function geneticAlgorithm(){
+    let firstGeneration = [];
 
+    for (let i = 0; i < points.length; ++i){
+        firstGeneration.push(points[i]);
+    }
     chromosomeLength = firstGeneration.length;
 
     let population = createInitialPopulation(firstGeneration);
@@ -167,42 +170,38 @@ async function geneticAlgorithm() {
 
     let bestChromosome = population[0].slice();
 
-    let end = 5;
+    let finish = 5;
 
-    for (let i = 0; i < 100000; ++i) {
-        if (end === 0) {
-            drawPath(bestChromosome, "rgb(0,0,0)");
-            break;
-        }
+    for(let i = 0; i < 10000; ++i){
 
         population = population.slice(0, points.length * points.length);
 
         for (let j = 0; j < points.length * points.length; ++j) {
             const index1 = randomNumber(0, population.length);
             const index2 = randomNumber(0, population.length);
-            const firstParent = population[index1].slice(0, population[index1].length - 1);
-            const secondParent = population[index2].slice(0, population[index2].length - 1);
-
-            const child = breedOffspring(firstParent, secondParent);
-            population.push(child[0].slice());
-            population.push(child[1].slice());
+            const [child1, child2] = breedOffspring(population[index1].slice(0, population[index1].length - 1), population[index2].slice(0, population[index2].length - 1));
+            population.push(child1.slice());
+            population.push(child2.slice());
         }
-
+        
         population.sort((a, b) => a[a.length - 1] - b[b.length - 1]);
 
-        if (JSON.stringify(bestChromosome) !== JSON.stringify(population[0])) {
-           bestChromosome = population[0].slice();
-           end = 5;
+        if (JSON.stringify(bestChromosome) !== JSON.stringify(population[0])){
+            bestChromosome = population[0].slice();
+            finish = 5;
         }
 
-        
-        console.log(i);
-            end -= 1;
+        if (i % 100 === 0){
+            finish -= 1;
+        }
+
+        if (finish === 0){
+            drawPath(bestChromosome, "rgb(0,0,0)")
+            break;
+        }
 
         await waitAsync(0);
     }
 }
-
-
 
 
