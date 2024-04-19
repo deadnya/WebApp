@@ -3,7 +3,7 @@
 yea thats an app
 
 by:
-Булдыги Пётр
+Булдыгин Пётр
 Почтарев Артемий
 
 Featuring:
