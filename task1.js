@@ -428,7 +428,7 @@ function changeState(elem){
 
 function showMaze(oldN) {
 
-    let tableSize = 0.9 * window.innerWidth;
+    let tableSize = 0.31 * window.innerWidth;
 
     let div = document.getElementById('maze');
 
