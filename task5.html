@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree</title>
+    <script defer src="task5.js"></script>
+    <link rel="stylesheet" href="task5.css">
+
+    <div id="buttonContainer">
+        <a class="link" id="t1" href="./task1.html">Astar</a>
+        <a class="link" id="t2" href="./task2.html">Clusterz</a>
+        <a class="link" id="t3" href="./task3.html">Genetics</a>
+        <a class="link" id="t4" href="./task4.html">Ants</a>
+        <a class="link" id="t5" href="./task5.html">Tree</a>
+        <a class="link" id="t6" href="./task6.html">NeuroNet</a>
+    </div>
+
+    <link rel="stylesheet" href="transitions.css">
+    <script src="transitions.js" defer></script>
+</head>
+
+<body>
+    <div id="menu">
+        <div>
+            <label class="label" for='fileInput' accept=".csv">Upload your CSV tree</label>
+            <button id="getFileButton">Build</button>
+            <button id="optimizeButton">Optimize</button>
+            <button id="startButton">Run</button>
+            <button id="resetButton">Clear</button>
+            <input id="fileInput" type="file" accept=".csv">
+
+            <div class="textbox">
+                <p class="button-section">Your request:</p>
+                <input type="text" id="inputData" name="name">
+            </div>
+        </div>
+
+        <p style="font-size: 18px;">Test CSV file is located in the site directory. You can use your mouse to look over your tree!</p>
+    </div>
+
+    <div class="canvas">
+        <div class="tree" id="tree">
+            <ul id="root">
+                    
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

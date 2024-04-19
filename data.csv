@@ -1,0 +1,15 @@
+Moisture,Temperature,Humidity,Wind,Play
+Sunny,Hot,High,No,No
+Sunny,Hot,High,Yes,No
+Party-Cloudy,Hot,High,No,Yes
+Cloudy,Moderate,High,No,Yes
+Cloudy,Cold,Normal,No,Yes
+Cloudy,Cold,Normal,Yes,No
+Party-Cloudy,Cold,Normal,Yes,Yes
+Sunny,Moderate,High,No,No
+Sunny,Cold,Normal,No,Yes
+Cloudy,Moderate,Normal,No,Yes
+Sunny,Moderate,Normal,Yes,Yes
+Party-Cloudy,Moderate,High,Yes,Yes
+Party-Cloudy,Hot,Normal,No,Yes
+Cloudy,Moderate,High,Yes,No

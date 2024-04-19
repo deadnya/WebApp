@@ -184,9 +184,8 @@ function kMeans(){
 
     while (!fin){
         calcCentroids();
+        showClusters();
     }
-
-    showClusters();
 }
 
 function shuffleArray(array) {
@@ -498,7 +497,6 @@ function affinityPropagation() {
                 ctx.arc(canvasDots[i].dotx, canvasDots[i].doty, 30, 0, 2*Math.PI);
                 ctx.fill(); 
 
-                
             }
         }
     }
@@ -561,6 +559,8 @@ function main(){
         alert("Min dots: 3");
         return;
     }
+
+    fin = false;
 
     usedColors = [];
 
