@@ -1,3 +1,15 @@
+# Web Project for HITS
+
 yea thats an app
 
-WE WILL ADD TREE LATER ITS JUST A BUT CURSED ATM
+by:
+Булдыги Пётр
+Почтарев Артемий
+
+Featuring:
+Astar+
+Clusterization+
+Gen Algo
+Ants sim+
+Solution tree+
+MeuroNet+
